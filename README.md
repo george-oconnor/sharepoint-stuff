@@ -26,5 +26,5 @@ ctx = getCTX("SHAREPOINT_URL", "USERNAME", "PASSWORD")
 
 # the filepath should include the filename, this is so that the name of the file on sharepoint can be declared seperately to the name of the
 # file on the system
-uploadFile(ctx, "FILENAME_ON_SHAREPOINT", "FILEPATH_ON_SYSTEM", "SHAREPOINT_RELATIVE_URL")
+uploadFile(ctx, "FILENAME_FOR_SHAREPOINT", "FILEPATH_ON_SYSTEM", "SHAREPOINT_RELATIVE_URL")
 ```
