@@ -1,4 +1,4 @@
-# email-stuff
+# sharepoint-stuff
 
 A package that adds a range of functionality for working with sharepoint sites from python e.g. uploading and downloading of files, creation of folders, etc. Under constant development and change as of January 2023.
 
