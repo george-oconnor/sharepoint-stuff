@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 DESCRIPTION = 'Package that adds a range of functionality for working with sharepoint sites - under constant development'
 
 with open("README.md", "r") as fh:
@@ -18,7 +18,7 @@ setup(
     long_description_content_type="text/markdown",
     py_modules=["sharepoint_stuff"],
     package_dir={'': 'src'},
-    install_requires=[],
+    install_requires=["Office365-REST-Python-Client", "office365"],
     keywords=['python', 'sharepoint', 'upload', 'sharepoint site', 'download', 'office', 'office365', 'microsoft', 'microsoft365', 'azure', 'site'],
     classifiers=[
         "Development Status :: 3 - Alpha",

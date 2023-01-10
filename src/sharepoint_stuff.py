@@ -1,10 +1,8 @@
 from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
 from office365.sharepoint.files.file import File
-from office365.sharepoint.folders.folder import Folder
+#from office365.sharepoint.folders.folder import Folder
 import os, ctypes, logging
-from sharepy import connect, SharePointSession
-from requests.models import Response
 
 os.makedirs("./logs", exist_ok=True)
 logger = logging.getLogger(__name__)
@@ -123,37 +121,14 @@ def deleteFile(ctx:ClientContext, relativeUrl:str) -> None:
         logger.error(e, exc_info=True)
 
 def createFolders(ctx:str, relative_url:str) -> None:
+    """creates the path specified on sharepoint"""
     folder = ctx.web.ensure_folder_path(relative_url).execute_query()
 
-def getSharepyAuth(username:str, password:str) -> SharePointSession:
-    s = connect("ioedub.sharepoint.com", username, password)
-    return s
-
-def getSiteLists(s:SharePointSession, site:str) -> Response:
-    r = s.get(f"{site}/_api/web/lists")
-    return r
-
-def getSiteList(s:SharePointSession, site:str, list:str) -> Response:
-    r = s.get(f"{site}/_api/web/lists/GetByTitle('{list}')")
-    return r
-
-def createSiteList(s:SharePointSession, site:str, extra_json:dict) -> Response:
-    """{
-            "__metadata": 
-            {
-                "type": "SP.List"
-            },
-            "AllowContentTypes": true,
-            "BaseTemplate": 100,
-            "ContentTypesEnabled": true,
-            "Description": "My list description",
-            "Title": "Test"
-        }"""
-    r = s.post(f"{site}/_api/web/lists", json=extra_json)
-    return r
-
-def deleteSiteList(s:SharePointSession, site:str, list_guid:str) -> Response:
-    r = s.post(f"{site}/_api/web/lists(guid'{list_guid}')")
-    return r
+def downloadAllFiles(ctx:ClientContext, rel_url:str, download_dir:str, hidden_dir:bool=False):
+    """downloads all the files within a sharepoint dir - only does root directory of the relative url (no subfolder contents)"""
+    contents = returnAllContents(ctx, rel_url, get_files=True, get_folders=False)
+    os.makedirs(download_dir, exist_ok=True)
+    for file in contents:
+        downloadFile(ctx, rel_url+"/"+file, file, download_dir, hidden=hidden_dir)
 
 logger.debug("-------Finished Execution-------")
