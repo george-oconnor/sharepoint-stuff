@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.0.4'
+VERSION = '0.0.5'
 DESCRIPTION = 'Package that adds a range of functionality for working with sharepoint sites - under constant development'
 
 with open("README.md", "r") as fh:

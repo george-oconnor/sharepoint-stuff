@@ -124,11 +124,13 @@ def createFolders(ctx:str, relative_url:str) -> None:
     """creates the path specified on sharepoint"""
     folder = ctx.web.ensure_folder_path(relative_url).execute_query()
 
-def downloadAllFiles(ctx:ClientContext, rel_url:str, download_dir:str, hidden_dir:bool=False):
+def downloadAllFiles(ctx:ClientContext, rel_url:str, download_dir:str, hidden_dir:bool=False) -> list[str]:
     """downloads all the files within a sharepoint dir - only does root directory of the relative url (no subfolder contents)"""
     contents = returnAllContents(ctx, rel_url, get_files=True, get_folders=False)
     os.makedirs(download_dir, exist_ok=True)
     for file in contents:
         downloadFile(ctx, rel_url+"/"+file, file, download_dir, hidden=hidden_dir)
+
+    return contents
 
 logger.debug("-------Finished Execution-------")
