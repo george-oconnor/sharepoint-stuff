@@ -10,7 +10,7 @@ handler = logging.FileHandler('./logs/SharePoint.log')
 formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 logger.debug("-------Starting Execution-------")
 
 def getCTX(url:str, username:str, password:str) -> ClientContext:
